@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+struct MoviesCellViewModel {
+    
+    //MARK: Public Properties
+    let name: String
+    let releaseData: String
+    let imagePath: String
+    
+    var avatarURL: URL? {
+        let imageUrl: String = "https://image.tmdb.org/t/p/w92/\(imagePath)"
+        guard let urlPath = URL.init(string: imageUrl) else { return nil }
+        return urlPath
+    }
+}

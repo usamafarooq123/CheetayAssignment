@@ -9,7 +9,11 @@ import UIKit
 
 public class MoviesViewController: UIViewController {
 
+    //MARK: Outlet
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var viewModel: MoviesViewModel!
+    lazy var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.main.bounds.width - 40, 20))
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +32,70 @@ public class MoviesViewController: UIViewController {
         viewModel.output = { [unowned self] output in
             //handle all your bindings here
             switch output {
-            default:
-                break
+            case .reload:
+                reloadCollectionView()
+            case .setEmptyView(let error):
+                collectionView.setEmptyMessage(error)
             }
         }
+    }
+    private func reloadCollectionView() {
+        collectionView.restore()
+       collectionView.reloadData()
     }
 }
 
 extension MoviesViewController {
     func configureAppearance() {
 
+        searchBar.placeholder = "Search movie here"
+        searchBar.delegate = self
+        let leftNavBarButton = UIBarButtonItem(customView:searchBar)
+        self.navigationItem.leftBarButtonItem = leftNavBarButton
+        registerCell()
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+    }
+    
+    func registerCell() {
+        collectionView.register(cellType: MoviesCollectionViewCell.self)
+    }
+}
+
+extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.numberOfRows()
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(with: MoviesCollectionViewCell.self, for: indexPath)
+        let item = viewModel.cellViewModel(forRow: indexPath.row)
+        cell.configure(viewModel: item)
+        return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = (collectionView.bounds.size.width - 2) / 2
+        let cellHeight = cellWidth * 1.5
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelect(with: indexPath.row)
+    }
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchBar.resignFirstResponder()
+    }
+    
+    
+}
+
+
+extension MoviesViewController: UISearchBarDelegate {
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchMovie(with: searchText)
     }
 }

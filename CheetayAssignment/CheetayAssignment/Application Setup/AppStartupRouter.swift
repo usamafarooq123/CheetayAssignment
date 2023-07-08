@@ -13,7 +13,7 @@ class AppStartupRouter {
         let navigationController = UINavigationController()
         let module = MoviesBuilder().build(with: navigationController)
         navigationController.setViewControllers([module], animated: false)
-        navigationController.setNavigationBarHidden(true, animated: false)
+        
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }

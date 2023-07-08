@@ -6,12 +6,19 @@
 //
 
 import UIKit
+import Kingfisher
 
-class MoviesCollectionViewCell: UICollectionViewCell {
+final class MoviesCollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet private weak var movieImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func configure(viewModel: MoviesCellViewModel) {
+        movieImageView.kf.setImage(with: viewModel.avatarURL, placeholder: UIImage.placeholderImage)
     }
 
 }

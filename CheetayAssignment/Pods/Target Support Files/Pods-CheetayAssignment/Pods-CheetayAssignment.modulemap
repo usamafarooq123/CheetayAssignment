@@ -1,0 +1,6 @@
+framework module Pods_CheetayAssignment {
+  umbrella header "Pods-CheetayAssignment-umbrella.h"
+
+  export *
+  module * { export * }
+}

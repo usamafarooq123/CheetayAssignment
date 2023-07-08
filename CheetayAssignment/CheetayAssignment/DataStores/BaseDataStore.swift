@@ -6,3 +6,10 @@
 //
 
 import Foundation
+class BaseDataStore {
+    let service: Service
+    
+    init(service: Service) {
+        self.service = service
+    }
+}
