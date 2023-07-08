@@ -10,7 +10,7 @@ import UIKit
 
 class MovieDetailBuilder {
 
-    func build(with navigationController: UINavigationController?, movie: Movie) -> UIViewController {
+    func build(with navigationController: UINavigationController?, movie: MovieProtocol) -> UIViewController {
         
         let storyboard = UIStoryboard(name: "MovieDetail", bundle: Bundle(for: MovieDetailBuilder.self))
         let viewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as! MovieDetailViewController

@@ -22,6 +22,7 @@ protocol MoviesViewModel: MoviesViewModelInput {
     func cellViewModel(forRow row: Int) -> MoviesCellViewModel
     func searchMovie(with name: String)
     func didSelect(with row: Int)
+    func fetchSearchHistory()
 }
 
 class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
@@ -29,10 +30,10 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
     //MARK: Private Properties
     private let router: MoviesRouter
     private let dataStore: MoviesDataStoreable
-    private var movies = [Movie]()
+    private var movies = [MovieProtocol]()
     private let debouncer = Debouncer(interval: 0.5)
     var output: MoviesViewModelOutput?
-    
+    let history: [String] = ["asdas", "asdas", "wewe", "igkkg"]
     
     init(router: MoviesRouter, dataStore: MoviesDataStoreable) {
         self.router = router
@@ -98,6 +99,7 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
     enum Output {
         case reload
         case setEmptyView(String)
+        case setHistory([String])
     }
 }
 
@@ -115,5 +117,9 @@ extension MoviesViewModelImpl {
     func didSelect(with row: Int) {
         let movie = movies[row]
         router.routeToDetail(with: movie)
+    }
+    
+    func fetchSearchHistory() {
+        send(.setHistory(history))
     }
 }

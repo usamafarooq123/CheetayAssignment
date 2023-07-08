@@ -28,9 +28,9 @@ class MovieDetailViewModelImpl: MovieDetailViewModel, MovieDetailViewModelInput 
     private let router: MovieDetailRouter
     private var isLiked = false
     var output: MovieDetailViewModelOutput?
-    let movie: Movie
+    let movie: MovieProtocol
     
-    init(router: MovieDetailRouter, movie: Movie) {
+    init(router: MovieDetailRouter, movie: MovieProtocol) {
         self.router = router
         self.movie = movie
     }

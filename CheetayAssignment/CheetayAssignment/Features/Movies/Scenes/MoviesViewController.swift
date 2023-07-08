@@ -10,6 +10,7 @@ import UIKit
 public class MoviesViewController: UIViewController {
 
     //MARK: Outlet
+    @IBOutlet weak var searchSuggestionView: SearchSuggestionsView!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var viewModel: MoviesViewModel!
@@ -36,6 +37,8 @@ public class MoviesViewController: UIViewController {
                 reloadCollectionView()
             case .setEmptyView(let error):
                 collectionView.setEmptyMessage(error)
+            case .setHistory(let history):
+                searchSuggestionView.setData(history)
             }
         }
     }
@@ -50,6 +53,8 @@ extension MoviesViewController {
 
         searchBar.placeholder = "Search movie here"
         searchBar.delegate = self
+        searchSuggestionView.isHidden = true
+        searchSuggestionView.delegate = self
         let leftNavBarButton = UIBarButtonItem(customView:searchBar)
         self.navigationItem.leftBarButtonItem = leftNavBarButton
         registerCell()
@@ -90,12 +95,36 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
         searchBar.resignFirstResponder()
     }
     
-    
 }
 
 
 extension MoviesViewController: UISearchBarDelegate {
+    
+    public func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        if let text = searchBar.text {
+            searchSuggestionView.isHidden = text.isEmpty ? false : true
+            viewModel.fetchSearchHistory()
+        }
+        return true
+    }
+    
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchSuggestionView.isHidden = true
+    }
+    
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchSuggestionView.isHidden = searchText.isEmpty ? false : true
         viewModel.searchMovie(with: searchText)
     }
+}
+
+
+extension MoviesViewController: SearchSuggestionsDelegate {
+    func selection(text: String) {
+        searchBar.text = text
+        viewModel.searchMovie(with: text)
+        searchSuggestionView.isHidden = true
+    }
+    
+    
 }

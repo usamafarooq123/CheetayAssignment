@@ -29,8 +29,8 @@ class MovieDetailCell: UITableViewCell {
     }
     
     func configure(with viewModel: MovieDetailCellViewModel) {
-        movieHeaderImage.kf.setImage(with: viewModel.headerImagePathURL, placeholder: UIImage.placeholderImage)
-        posterImage.kf.setImage(with: viewModel.posterImagePathURL, placeholder: UIImage.placeholderImage)
+        movieHeaderImage.kf.setImage(with: viewModel.posterImagePathURL, placeholder: UIImage.placeholderImage)
+        posterImage.kf.setImage(with: viewModel.headerImagePathURL, placeholder: UIImage.placeholderImage)
         movieNameLabel.text = viewModel.name
         releaseDateLabel.text = viewModel.releaseData
         descriptionLabel.text = viewModel.description

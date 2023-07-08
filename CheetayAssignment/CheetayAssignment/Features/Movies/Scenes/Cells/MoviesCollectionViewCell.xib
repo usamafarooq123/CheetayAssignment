@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,6 +20,54 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="movie-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="hF1-CL-YNq">
                         <rect key="frame" x="0.0" y="0.0" width="135" height="195"/>
                     </imageView>
+                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTD-W4-kJf">
+                        <rect key="frame" x="0.0" y="147" width="135" height="48"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="48" id="gZ2-8b-Fer"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Xim-QR-dAG">
+                        <rect key="frame" x="6" y="147" width="123" height="48"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="YgU-er-2XN">
+                                <rect key="frame" x="0.0" y="10.999999999999998" width="93" height="26.333333333333329"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ZB-62-t54">
+                                        <rect key="frame" x="0.0" y="0.0" width="93" height="14.333333333333334"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yn8-PM-cKG">
+                                        <rect key="frame" x="0.0" y="14.333333333333343" width="93" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4k-fl-Vxp">
+                                <rect key="frame" x="93" y="11" width="30" height="27"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="I0j-Pk-EA6"/>
+                                    <constraint firstAttribute="height" constant="30" id="gTY-v4-4WZ"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" backgroundImage="heart" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="selected" backgroundImage="heart.fill" catalog="system"/>
+                                <state key="highlighted" image="heart.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapLike:" destination="gTV-IL-0wX" eventType="touchUpInside" id="qRV-30-hHu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </stackView>
                 </subviews>
             </view>
             <color key="backgroundColor" red="0.19215688110000001" green="0.19215688110000001" blue="0.19215688110000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -26,16 +75,31 @@
                 <constraint firstItem="hF1-CL-YNq" firstAttribute="trailing" secondItem="gTV-IL-0wX" secondAttribute="trailing" id="4fa-So-RIK"/>
                 <constraint firstAttribute="top" secondItem="hF1-CL-YNq" secondAttribute="top" id="73l-MG-5B9"/>
                 <constraint firstAttribute="bottom" secondItem="hF1-CL-YNq" secondAttribute="bottom" id="Aj5-tC-9Kj"/>
+                <constraint firstItem="Xim-QR-dAG" firstAttribute="trailing" secondItem="VTD-W4-kJf" secondAttribute="trailing" constant="-6" id="F5p-Kl-2Mq"/>
+                <constraint firstItem="VTD-W4-kJf" firstAttribute="trailing" secondItem="hF1-CL-YNq" secondAttribute="trailing" id="Jjz-16-BbM"/>
+                <constraint firstItem="Xim-QR-dAG" firstAttribute="bottom" secondItem="VTD-W4-kJf" secondAttribute="bottom" id="Md5-5k-yTd"/>
+                <constraint firstItem="Xim-QR-dAG" firstAttribute="top" secondItem="VTD-W4-kJf" secondAttribute="top" id="NKJ-ep-daO"/>
+                <constraint firstItem="VTD-W4-kJf" firstAttribute="bottom" secondItem="hF1-CL-YNq" secondAttribute="bottom" id="a5N-p0-rwf"/>
                 <constraint firstAttribute="leading" secondItem="hF1-CL-YNq" secondAttribute="leading" id="hO6-59-Z8H"/>
+                <constraint firstItem="VTD-W4-kJf" firstAttribute="leading" secondItem="hF1-CL-YNq" secondAttribute="leading" id="nrf-jq-k4z"/>
+                <constraint firstItem="Xim-QR-dAG" firstAttribute="leading" secondItem="VTD-W4-kJf" secondAttribute="leading" constant="6" id="qcb-Dc-H7q"/>
             </constraints>
             <size key="customSize" width="135" height="195"/>
             <connections>
+                <outlet property="likeButton" destination="U4k-fl-Vxp" id="rbn-Ct-3Gd"/>
                 <outlet property="movieImageView" destination="hF1-CL-YNq" id="Qte-RF-fCT"/>
+                <outlet property="movieNameLabel" destination="4ZB-62-t54" id="yi0-Sp-kDU"/>
+                <outlet property="releaseLabel" destination="Yn8-PM-cKG" id="zL4-Bq-JH3"/>
             </connections>
             <point key="canvasLocation" x="52.671755725190835" y="70.774647887323951"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="movie-placeholder" width="92" height="138"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
