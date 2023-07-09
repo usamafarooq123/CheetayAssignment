@@ -62,7 +62,6 @@ extension CoreDataManager {
     func getLiked(movieId: Int) -> Bool {
         guard let movie = fetchMovie(by: movieId) else {return false}
         return movie.isLiked
-        
     }
     
     

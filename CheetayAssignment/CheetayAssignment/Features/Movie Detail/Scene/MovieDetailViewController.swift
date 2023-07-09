@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class MovieDetailViewController: UIViewController {
+final public class MovieDetailViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     var likeButton: UIBarButtonItem!

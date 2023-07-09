@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MovieDetailRouter {
+final class MovieDetailRouter {
     private weak var navigationController: UINavigationController?
 
     init(navigationController: UINavigationController?) {

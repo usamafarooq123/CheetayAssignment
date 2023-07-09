@@ -6,6 +6,15 @@
 //
 
 import CoreData
+/**
+## Concurrency
+
+Core Data supports concurrency through multiple managed object contexts. The `CoreDataStack` class provides a main managed object context that can be accessed using the `readContext` and `writeContext` function.
+
+## Thread Safety
+
+Ensure that you access managed objects and perform Core Data operations on the appropriate context and thread. Refer to the Core Data documentation for more details on concurrency and thread safety.
+**/
 
 final class CoreDataStack {
     

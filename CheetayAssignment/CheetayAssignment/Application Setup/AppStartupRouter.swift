@@ -8,16 +8,15 @@
 import Foundation
 import UIKit
 
-class AppStartupRouter {
+/**
+The AppStartupRouter class is responsible for setting up the initial view hierarchy of the application upon app startup.
+
+Use this class to configure the root view controller of the app's main window. In this implementation, the AppStartupRouter sets the root view controller to a TabbarController, which represents the main tab bar interface of the application.
+*/
+
+final class AppStartupRouter {
     func route(into window: UIWindow?) {
-        let coreDataManager = CoreDataManager(coreDataStack: CoreDataStack())
-        let dataStore = MoviesDataStore(service: NetworkService())
-        
-        let navigationController = UINavigationController()
-        let module = MoviesBuilder().build(with: navigationController, dataStore: dataStore, coreDataManager: coreDataManager)
-        
-        navigationController.setViewControllers([module], animated: false)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        window!.rootViewController = TabbarController()
+        window!.makeKeyAndVisible()
     }
 }

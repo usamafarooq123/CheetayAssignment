@@ -1,14 +1,14 @@
 //  
-//  MoviesRouter.swift
+//  favouriteMoviesRouter.swift
 //  CheetayAssignment
 //
-//  Created by usama farooq on 07/07/2023.
+//  Created by usama farooq on 09/07/2023.
 //
 
 import Foundation
 import UIKit
 
-final class MoviesRouter {
+class FavouriteMoviesRouter {
     private weak var navigationController: UINavigationController?
 
     init(navigationController: UINavigationController?) {
@@ -16,7 +16,7 @@ final class MoviesRouter {
     }
 }
 
-extension MoviesRouter {
+extension FavouriteMoviesRouter {
     func routeToDetail(with movie: MovieProtocol, coreDataManger: CoreDataManager, delegate: MovieDetailDelegate) {
         let module = MovieDetailBuilder().build(with: navigationController, movie: movie, coreDataManager: coreDataManger, delegate: delegate)
         navigationController?.pushViewController(module, animated: true)

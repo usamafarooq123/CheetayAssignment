@@ -15,7 +15,11 @@ protocol MoviesDataStoreable {
     func moviesList(page: Int, completion: @escaping MoviesDataStoreCompletion)
     func searchMovies(with page: Int,name: String, completion: @escaping SearchMoviesDataStoreCompletion)
 }
+/**
+The MoviesDataStore class provides a data store for fetching movies data from a remote service.
 
+This data store conforms to the MoviesDataStoreable protocol, which defines methods for retrieving a list of movies and searching movies by name.
+ **/
 final class MoviesDataStore: BaseDataStore, MoviesDataStoreable {
 
     private let translation: ObjectTranslator

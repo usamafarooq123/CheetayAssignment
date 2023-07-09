@@ -28,7 +28,7 @@ protocol MovieDetailViewModel: MovieDetailViewModelInput {
     func movieLike()
 }
 
-class MovieDetailViewModelImpl: MovieDetailViewModel, MovieDetailViewModelInput {
+final class MovieDetailViewModelImpl: MovieDetailViewModel, MovieDetailViewModelInput {
 
     private let router: MovieDetailRouter
     private var isLiked = false
@@ -60,6 +60,7 @@ class MovieDetailViewModelImpl: MovieDetailViewModel, MovieDetailViewModelInput 
         case updateLikeButton(Bool)
     }
     
+    ///This method checks if the current execution thread is the main thread. If it is, the output closure is called directly with the provided state. If it's not, the output closure is dispatched asynchronously to the main thread to ensure safe access to UI-related operations.
     private func send(_ state: Output) {
         
         if Thread.isMainThread {

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MovieDetailBuilder {
+final class MovieDetailBuilder {
 
     func build(with navigationController: UINavigationController?, movie: MovieProtocol, coreDataManager: CoreDataManager, delegate: MovieDetailDelegate) -> UIViewController {
         

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MoviesBuilder {
+final class MoviesBuilder {
 
     func build(with navigationController: UINavigationController?, dataStore: MoviesDataStoreable, coreDataManager: CoreDataManager) -> UIViewController {
         

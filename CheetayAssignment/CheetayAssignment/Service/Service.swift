@@ -19,7 +19,8 @@ protocol Service {
 /// A concrete implementation of Service class responsible for getting a Network resource
 final class NetworkService: Service {
     func get(request: Request, completion: @escaping (Result<Data, Error>) -> Void) {
-        URLSession.shared.dataTask(with: request.urlRequest) { (data, response, error) in
+        var request = request.urlRequest
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))
                 return

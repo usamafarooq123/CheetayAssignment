@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class MoviesViewController: UIViewController {
+final public class MoviesViewController: UIViewController {
 
     //MARK: Outlet
     @IBOutlet weak var searchSuggestionView: SearchSuggestionsView!
@@ -38,12 +38,14 @@ public class MoviesViewController: UIViewController {
             case .setEmptyView(let error):
                 collectionView.setEmptyMessage(error)
             case .setHistory(let history):
-                searchSuggestionView.isHidden = false
+               hideShowSearchView(state: false)
+                
                 searchSuggestionView.setData(history)
             case .reloadCell(let row):
                 let indexPath = IndexPath(row: row, section: 0)
                 collectionView.reloadItems(at: [indexPath])
-                
+            case .showSuggestionView(let status):
+                hideShowSearchView(state: status)
             }
         }
     }
@@ -51,24 +53,33 @@ public class MoviesViewController: UIViewController {
         collectionView.restore()
         collectionView.reloadData()
     }
+    
+    private func hideShowSearchView(state: Bool) {
+        UIView.animate(withDuration: 0.2) {
+            self.searchSuggestionView.isHidden = state
+        }
+    }
 }
 
 extension MoviesViewController {
-    func configureAppearance() {
-
+    private func configureAppearance() {
+        configureNavigationBar()
         searchBar.placeholder = "Search movie here"
         searchBar.delegate = self
         searchSuggestionView.isHidden = true
         searchSuggestionView.delegate = self
-        let leftNavBarButton = UIBarButtonItem(customView:searchBar)
-        self.navigationItem.leftBarButtonItem = leftNavBarButton
         registerCell()
         collectionView.delegate = self
         collectionView.dataSource = self
         
     }
     
-    func registerCell() {
+    private func configureNavigationBar() {
+        let leftNavBarButton = UIBarButtonItem(customView:searchBar)
+        self.navigationItem.leftBarButtonItem = leftNavBarButton
+    }
+    
+    private func registerCell() {
         collectionView.register(cellType: MoviesCollectionViewCell.self)
     }
 }
@@ -119,17 +130,11 @@ extension MoviesViewController: UISearchBarDelegate {
     }
     
     public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchSuggestionView.isHidden = true
+        hideShowSearchView(state: true)
     }
     
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            viewModel.fetchSearchHistory()
-            viewModel.fetchMovies(text: nil)
-        } else {
-            searchSuggestionView.isHidden = true
-            viewModel.fetchMovies(text: searchText)
-        }
+        viewModel.searchTextDidChange(text: searchText)
         
     }
 }
@@ -139,7 +144,7 @@ extension MoviesViewController: SearchSuggestionsDelegate {
     func selection(text: String) {
         searchBar.text = text
         viewModel.fetchMovies(text: text)
-        searchSuggestionView.isHidden = true
+        hideShowSearchView(state: true)
     }
 }
 

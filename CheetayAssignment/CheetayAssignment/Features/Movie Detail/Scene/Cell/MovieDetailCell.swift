@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class MovieDetailCell: UITableViewCell {
+final class MovieDetailCell: UITableViewCell {
 
     @IBOutlet weak var movieHeaderImage: UIImageView!
     @IBOutlet weak var posterImage: UIImageView!
