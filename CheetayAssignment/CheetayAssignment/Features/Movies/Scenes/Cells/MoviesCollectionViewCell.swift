@@ -10,6 +10,7 @@ import Kingfisher
 
 enum MovieActions {
     case like
+    case unlike
 }
 
 protocol MoviesCellectionViewDelegate: AnyObject {
@@ -33,7 +34,7 @@ final class MoviesCollectionViewCell: UICollectionViewCell {
     
     @IBAction func didTapLike(_ sender: UIButton) {
         likeButton.isSelected = !likeButton.isSelected
-        delegate?.didTap(action: .like, index: index)
+        delegate?.didTap(action: likeButton.isSelected ? .like : .unlike, index: index)
     }
     
     func configure(viewModel: MoviesCellViewModel, delegate: MoviesCellectionViewDelegate ) {

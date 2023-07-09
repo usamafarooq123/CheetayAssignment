@@ -40,6 +40,10 @@ public class MoviesViewController: UIViewController {
             case .setHistory(let history):
                 searchSuggestionView.isHidden = false
                 searchSuggestionView.setData(history)
+            case .reloadCell(let row):
+                let indexPath = IndexPath(row: row, section: 0)
+                collectionView.reloadItems(at: [indexPath])
+                
             }
         }
     }
@@ -143,7 +147,9 @@ extension MoviesViewController: MoviesCellectionViewDelegate {
     func didTap(action: MovieActions, index: Int) {
         switch action {
         case .like:
-            viewModel.likeMovie(index: index)
+            viewModel.likeMovie(index: index, state: true)
+        case .unlike:
+            viewModel.likeMovie(index: index, state: false)
         }
     }
     

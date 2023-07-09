@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol MovieDetailDelegate: AnyObject {
+    func update(movie id: Int)
+}
+
+
 typealias MovieDetailViewModelOutput = (MovieDetailViewModelImpl.Output) -> Void
 
 protocol MovieDetailViewModelInput {
@@ -28,15 +33,20 @@ class MovieDetailViewModelImpl: MovieDetailViewModel, MovieDetailViewModelInput 
     private let router: MovieDetailRouter
     private var isLiked = false
     var output: MovieDetailViewModelOutput?
-    let movie: MovieProtocol
+    var movie: MovieProtocol
+    let corDataManager: CoreDataManager
+    unowned var delegate: MovieDetailDelegate
     
-    init(router: MovieDetailRouter, movie: MovieProtocol) {
+    init(router: MovieDetailRouter, movie: MovieProtocol, coreDataManager: CoreDataManager, delegate: MovieDetailDelegate) {
         self.router = router
         self.movie = movie
+        self.corDataManager = coreDataManager
+        self.delegate = delegate
     }
     
     func viewModelDidLoad() {
         send(.reload)
+        send(.updateLikeButton(movie.isLiked))
     }
     
     func viewModelWillAppear() {
@@ -78,5 +88,8 @@ extension MovieDetailViewModelImpl {
     func movieLike() {
         isLiked = !isLiked
         send(.updateLikeButton(isLiked))
+        movie.isLiked = isLiked
+        corDataManager.likeMovie(movie: movie)
+        delegate.update(movie: movie.id)
     }
 }

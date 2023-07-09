@@ -21,9 +21,9 @@ protocol MoviesViewModel: MoviesViewModelInput {
     func fetchMovies(text: String?)
     func numberOfRows() -> Int
     func cellViewModel(forRow row: Int) -> MoviesCellViewModel
-    func likeMovie(index: Int)
     func didSelect(with row: Int)
     func fetchSearchHistory()
+    func likeMovie(index: Int, state: Bool)
     
 }
 
@@ -84,8 +84,8 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
         
     }
     
-    func likeMovie(index: Int) {
-        movies[index].isLiked = true
+    func likeMovie(index: Int, state: Bool) {
+        movies[index].isLiked = state
         coreDataManager.likeMovie(movie: movies[index])
     }
     
@@ -165,6 +165,7 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
         case reload
         case setEmptyView(String)
         case setHistory([String])
+        case reloadCell(Int)
     }
 }
 
@@ -181,7 +182,7 @@ extension MoviesViewModelImpl {
     
     func didSelect(with row: Int) {
         let movie = movies[row]
-        router.routeToDetail(with: movie)
+        router.routeToDetail(with: movie, coreDataManger: coreDataManager, delegate: self)
     }
     
     func fetchSearchHistory() {
@@ -189,4 +190,13 @@ extension MoviesViewModelImpl {
         guard searchHistory.count != 0 else {return}
         send(.setHistory(searchHistory))
     }
+}
+
+extension MoviesViewModelImpl: MovieDetailDelegate {
+    func update(movie id: Int) {
+        guard let index = movies.firstIndex(where: {$0.id == id}) else {return}
+        send(.reloadCell(index))
+    }
+    
+    
 }

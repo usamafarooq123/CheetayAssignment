@@ -43,13 +43,14 @@ extension CoreDataManager {
         let predicate = NSPredicate(format: "id == '\(movie.id)'")
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: CoreDataEntity.movie.rawValue)
         fetchRequest.predicate = predicate
+        let context = coreDataStack.writeContext()
         
-        return coreDataStack.writeContext().performAndWait {
+        return context.performAndWait {
             do {
-                let movies = try coreDataStack.writeContext().fetch(fetchRequest)
+                let movies = try context.fetch(fetchRequest)
                 if movies.count > 0, let movieObject = movies.first {
                     movieObject.setValue(movie.isLiked, forKey: "isLiked")
-                    try coreDataStack.writeContext().save()
+                    try context.save()
                     
                 }
             } catch  {
@@ -93,7 +94,7 @@ extension CoreDataManager {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: CoreDataEntity.movie.rawValue)
         fetchRequest.predicate = predicate
         do {
-            let movies = try coreDataStack.writeContext().fetch(fetchRequest)
+            let movies = try coreDataStack.readContext().fetch(fetchRequest)
             if movies.count > 0 {
                 let moviesObject = movies.first!
                 let movie = objectToMovieModel(object: moviesObject)

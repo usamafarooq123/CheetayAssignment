@@ -34,38 +34,6 @@
             endingLineNumber = "121"
             landmarkName = "searchMovie(with:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3B8CDF1D-D2A5-4FEC-BA81-2008CEF249C7 - b7aa7435a94c778f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in CheetayAssignment.MoviesViewModelImpl.searchMovie(with: Swift.String) -&gt; ()"
-                  moduleName = "CheetayAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/usamafarooq/Documents/Personal/CheetayAssignment/CheetayAssignment/CheetayAssignment/Features/Movies/Scenes/MoviesViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
-                  offsetFromSymbolStart = "56">
-               </Location>
-               <Location
-                  uuid = "3B8CDF1D-D2A5-4FEC-BA81-2008CEF249C7 - baddc296c71d2907"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;CheetayAssignment.MoviesResponse, Swift.Error&gt;) -&gt; () in closure #1 () -&gt; () in CheetayAssignment.MoviesViewModelImpl.searchMovie(with: Swift.String) -&gt; ()"
-                  moduleName = "CheetayAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/usamafarooq/Documents/Personal/CheetayAssignment/CheetayAssignment/CheetayAssignment/Features/Movies/Scenes/MoviesViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
-                  offsetFromSymbolStart = "156">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -94,8 +62,8 @@
             filePath = "CheetayAssignment/CoreData/CoreDataManager+Movie+Extension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "likeMovie(movie:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +78,8 @@
             filePath = "CheetayAssignment/CoreData/CoreDataManager+Movie+Extension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "likeMovie(movie:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -128,7 +96,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "89"
             endingLineNumber = "89"
-            landmarkName = "likeMovie(index:)"
+            landmarkName = "likeMovie(index:state:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -158,8 +126,8 @@
             filePath = "CheetayAssignment/CoreData/CoreDataManager+Movie+Extension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "save(movie:)"
             landmarkType = "7">
          </BreakpointContent>

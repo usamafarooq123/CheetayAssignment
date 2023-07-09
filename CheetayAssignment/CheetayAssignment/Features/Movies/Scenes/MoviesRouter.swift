@@ -17,8 +17,8 @@ class MoviesRouter {
 }
 
 extension MoviesRouter {
-    func routeToDetail(with movie: MovieProtocol) {
-        let module = MovieDetailBuilder().build(with: navigationController, movie: movie)
+    func routeToDetail(with movie: MovieProtocol, coreDataManger: CoreDataManager, delegate: MovieDetailDelegate) {
+        let module = MovieDetailBuilder().build(with: navigationController, movie: movie, coreDataManager: coreDataManger, delegate: delegate)
         navigationController?.pushViewController(module, animated: true)
     }
 }
