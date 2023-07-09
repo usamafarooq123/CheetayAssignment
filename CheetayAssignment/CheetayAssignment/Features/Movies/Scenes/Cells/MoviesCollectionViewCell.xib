@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="135" height="195"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="movie-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="hF1-CL-YNq">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="hF1-CL-YNq">
                         <rect key="frame" x="0.0" y="0.0" width="135" height="195"/>
                     </imageView>
                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTD-W4-kJf">
@@ -70,7 +70,7 @@
                     </stackView>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.19215688110000001" green="0.19215688110000001" blue="0.19215688110000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="hF1-CL-YNq" firstAttribute="trailing" secondItem="gTV-IL-0wX" secondAttribute="trailing" id="4fa-So-RIK"/>
                 <constraint firstAttribute="top" secondItem="hF1-CL-YNq" secondAttribute="top" id="73l-MG-5B9"/>
@@ -97,7 +97,7 @@
     <resources>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
-        <image name="movie-placeholder" width="92" height="138"/>
+        <image name="placeholder" width="92" height="138"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

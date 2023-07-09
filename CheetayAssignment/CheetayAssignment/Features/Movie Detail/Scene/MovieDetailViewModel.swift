@@ -46,6 +46,7 @@ class MovieDetailViewModelImpl: MovieDetailViewModel, MovieDetailViewModelInput 
     
     func viewModelDidLoad() {
         send(.reload)
+        isLiked = movie.isLiked
         send(.updateLikeButton(movie.isLiked))
     }
     

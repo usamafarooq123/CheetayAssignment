@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 typealias MoviesViewModelOutput = (MoviesViewModelImpl.Output) -> Void
 
 protocol MoviesViewModelInput {
@@ -52,7 +53,6 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
     }
     
     func fetchMovies(text: String?) {
-//        guard !waiting else {return}
         if text?.isEmpty ?? true {
             if oldSearch == nil {
                 guard !waiting else {return}
@@ -194,8 +194,7 @@ extension MoviesViewModelImpl {
 extension MoviesViewModelImpl: MovieDetailDelegate {
     func update(movie id: Int) {
         guard let index = movies.firstIndex(where: {$0.id == id}) else {return}
+        movies[index].isLiked = coreDataManager.getLiked(movieId: id)
         send(.reloadCell(index))
     }
-    
-    
 }

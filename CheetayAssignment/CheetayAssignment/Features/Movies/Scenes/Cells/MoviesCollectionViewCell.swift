@@ -30,6 +30,8 @@ final class MoviesCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        contentView.layer.cornerRadius = 4
+        contentView.layer.masksToBounds = true
     }
     
     @IBAction func didTapLike(_ sender: UIButton) {
@@ -44,7 +46,6 @@ final class MoviesCollectionViewCell: UICollectionViewCell {
         movieNameLabel.text = viewModel.name
         releaseLabel.text = viewModel.releaseData
         likeButton.isSelected = viewModel.isLike
-        print("is like \(viewModel.isLike)")
     }
 
 }
