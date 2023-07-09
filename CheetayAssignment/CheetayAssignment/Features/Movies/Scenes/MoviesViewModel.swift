@@ -33,7 +33,7 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
     private let router: MoviesRouter
     private let dataStore: MoviesDataStoreable
     private var movies = [MovieProtocol]()
-    private let debouncer = Debouncer(interval: 0.5)
+    private let debouncer = Debouncer(interval: 1)
     private let coreDataManager: CoreDataManager
     private var waiting: Bool = false
     private var pageNo: Int = 0
@@ -52,25 +52,25 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
     }
     
     func fetchMovies(text: String?) {
-        guard !waiting else {return}
-        if text?.isEmpty ?? false {
+//        guard !waiting else {return}
+        if text?.isEmpty ?? true {
             if oldSearch == nil {
+                guard !waiting else {return}
                 pageNo += 1
             } else {
+                oldSearch = nil
                 pageNo = 1
             }
             fetchMovies()
         } else {
-            if oldSearch == nil {
+            if oldSearch == nil || oldSearch != text {
                 movies = []
+                send(.reload)
                 oldSearch = text
                 pageNo = 1
-            } else if oldSearch == text {
-                pageNo += 1
             } else {
-                movies = []
-                oldSearch = text
-                pageNo = 1
+                guard !waiting else {return}
+                pageNo += 1
             }
             searchMovie(with: text!)
         }
@@ -128,7 +128,6 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
                     for movie in response.movies {
                         self.coreDataManager.save(movie: movie)
                     }
-                  
                     self.coreDataManager.save(search: name)
                     print(response.movies.count)
                     self.send(.reload)

@@ -38,7 +38,7 @@ final class MoviesDataStore: BaseDataStore, MoviesDataStoreable {
     }
     
     func searchMovies(with page: Int, name: String, completion: @escaping SearchMoviesDataStoreCompletion) {
-        let request = MovieSearchRequest(name: name, page: page)
+        let request = MovieSearchRequest(name: name.filterParams(), page: page)
         service.get(request: request) { [weak self] (result) in
             switch result {
             case .success(let data):
