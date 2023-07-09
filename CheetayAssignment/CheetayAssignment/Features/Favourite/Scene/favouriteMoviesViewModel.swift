@@ -92,7 +92,6 @@ extension FavouriteMoviesViewModelImpl {
     }
     
     func didSelect(with row: Int) {
-        let movie = favMovies[row]
         router.routeToDetail(with: favMovies[row], coreDataManger: coreDataManager, delegate: self)
     }
     

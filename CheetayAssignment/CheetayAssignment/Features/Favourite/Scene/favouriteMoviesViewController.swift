@@ -33,8 +33,6 @@ public class FavouriteMoviesViewController: UIViewController {
             switch output {
             case .reload:
                 collectionView.reloadData()
-            default:
-                break
             }
         }
     }

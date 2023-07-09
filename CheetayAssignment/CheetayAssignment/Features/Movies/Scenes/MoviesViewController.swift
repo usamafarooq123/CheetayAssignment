@@ -8,7 +8,7 @@
 import UIKit
 
 final public class MoviesViewController: UIViewController {
-
+    
     //MARK: Outlet
     @IBOutlet weak var searchSuggestionView: SearchSuggestionsView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -29,7 +29,7 @@ final public class MoviesViewController: UIViewController {
     }
     
     fileprivate func bindViewModel() {
-
+        
         viewModel.output = { [unowned self] output in
             //handle all your bindings here
             switch output {
@@ -38,7 +38,7 @@ final public class MoviesViewController: UIViewController {
             case .setEmptyView(let error):
                 collectionView.setEmptyMessage(error)
             case .setHistory(let history):
-               hideShowSearchView(state: false)
+                hideShowSearchView(state: false)
                 
                 searchSuggestionView.setData(history)
             case .reloadCell(let row):
