@@ -9,14 +9,14 @@ import CoreData
 
 final class CoreDataStack {
     
-    fileprivate let modelName: String
-    fileprivate let stack = CoreDataStack(modelName: "CheetayAssignment")
+    fileprivate let modelName: String = "CheetayAssignment"
+    
     private let concurrentQueue = DispatchQueue(label: "serialQueue.coreData", qos: .default,
                                             attributes: .concurrent)
 
      func readContext() -> NSManagedObjectContext {
         var context: NSManagedObjectContext!
-        concurrentQueue.async {
+        concurrentQueue.sync {
             context = self.storeContainer().viewContext
         }
         return context
@@ -64,11 +64,6 @@ final class CoreDataStack {
         let modelURL = Bundle.main.url(forResource: self.modelName, withExtension: "mom")
         return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
-    
-    // MARK: - Initializer
-    private init(modelName: String) {
-        self.modelName = modelName
-    }
 
 }
 

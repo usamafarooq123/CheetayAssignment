@@ -18,11 +18,13 @@ protocol MoviesViewModel: MoviesViewModelInput {
     
     func viewModelDidLoad()
     func viewModelWillAppear()
+    func fetchMovies(text: String?)
     func numberOfRows() -> Int
     func cellViewModel(forRow row: Int) -> MoviesCellViewModel
-    func searchMovie(with name: String)
+    func likeMovie(index: Int)
     func didSelect(with row: Int)
     func fetchSearchHistory()
+    
 }
 
 class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
@@ -32,24 +34,79 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
     private let dataStore: MoviesDataStoreable
     private var movies = [MovieProtocol]()
     private let debouncer = Debouncer(interval: 0.5)
+    private let coreDataManager: CoreDataManager
+    private var waiting: Bool = false
+    private var pageNo: Int = 0
+    private var oldSearch: String?
     var output: MoviesViewModelOutput?
-    let history: [String] = ["asdas", "asdas", "wewe", "igkkg"]
     
-    init(router: MoviesRouter, dataStore: MoviesDataStoreable) {
+    
+    init(router: MoviesRouter, dataStore: MoviesDataStoreable, coreDataManager: CoreDataManager) {
         self.router = router
         self.dataStore = dataStore
+        self.coreDataManager = coreDataManager
     }
     
     func viewModelDidLoad() {
-        fetchMovies()
+       
+    }
+    
+    func fetchMovies(text: String?) {
+        guard !waiting else {return}
+        if text?.isEmpty ?? false {
+            if oldSearch == nil {
+                pageNo += 1
+            } else {
+                pageNo = 1
+            }
+            fetchMovies()
+        } else {
+            if oldSearch == nil {
+                movies = []
+                oldSearch = text
+                pageNo = 1
+            } else if oldSearch == text {
+                pageNo += 1
+            } else {
+                movies = []
+                oldSearch = text
+                pageNo = 1
+            }
+            searchMovie(with: text!)
+        }
     }
     
     func fetchMovies() {
-        dataStore.moviesList { [weak self] result in
+        moreMovies(page: pageNo)
+    }
+    
+    func calculatePage() {
+        
+    }
+    
+    func likeMovie(index: Int) {
+        movies[index].isLiked = true
+        coreDataManager.likeMovie(movie: movies[index])
+    }
+    
+    func getLiked(movieId: Int) -> Bool {
+       return coreDataManager.getLiked(movieId: movieId)
+    }
+    
+    func moreMovies(page: Int) {
+       
+        waiting = true
+        dataStore.moviesList(page: page) { [weak self] result in
             guard let self = self else {return}
+            self.waiting = false
             switch result {
+                
             case .success(let response):
-                self.movies = response.movies
+                for movie in response.movies {
+                    self.coreDataManager.save(movie: movie)
+                }
+                let localMovies = self.coreDataManager.fetchMovies()
+                self.movies = localMovies
                 self.send(.reload)
             case .failure(let error):
                 print(error.localizedDescription)
@@ -58,13 +115,21 @@ class MoviesViewModelImpl: MoviesViewModel, MoviesViewModelInput {
     }
     
     func searchMovie(with name: String) {
+        waiting = true
         guard name.count > 0 else {return}
         debouncer.debounce {
-            self.dataStore.searchMovies(with: name) { [weak self] result in
+            self.dataStore.searchMovies(with: self.pageNo, name: name) { [weak self] result in
+               
                 guard let self = self else {return}
+                self.waiting = false
                 switch result {
                 case .success(let response):
-                    self.movies = response.movies
+                    self.movies.append(contentsOf: response.movies)
+                    for movie in response.movies {
+                        self.coreDataManager.save(movie: movie)
+                    }
+                  
+                    self.coreDataManager.save(search: name)
                     print(response.movies.count)
                     self.send(.reload)
                 case .failure(let error):
@@ -111,7 +176,7 @@ extension MoviesViewModelImpl {
     
     func cellViewModel(forRow row: Int) -> MoviesCellViewModel {
         let movie = movies[row]
-        return MoviesCellViewModel(name: movie.title, releaseData: movie.releaseDate, imagePath: movie.posterPath ?? "")
+        return MoviesCellViewModel(name: movie.title, releaseData: movie.releaseDate, imagePath: movie.posterPath ?? "", isLike: getLiked(movieId: movie.id), index: row)
     }
     
     func didSelect(with row: Int) {
@@ -120,6 +185,8 @@ extension MoviesViewModelImpl {
     }
     
     func fetchSearchHistory() {
-        send(.setHistory(history))
+        let searchHistory = coreDataManager.fetchSearches()
+        guard searchHistory.count != 0 else {return}
+        send(.setHistory(searchHistory))
     }
 }

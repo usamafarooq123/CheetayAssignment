@@ -38,13 +38,14 @@ public class MoviesViewController: UIViewController {
             case .setEmptyView(let error):
                 collectionView.setEmptyMessage(error)
             case .setHistory(let history):
+                searchSuggestionView.isHidden = false
                 searchSuggestionView.setData(history)
             }
         }
     }
     private func reloadCollectionView() {
         collectionView.restore()
-       collectionView.reloadData()
+        collectionView.reloadData()
     }
 }
 
@@ -77,7 +78,7 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(with: MoviesCollectionViewCell.self, for: indexPath)
         let item = viewModel.cellViewModel(forRow: indexPath.row)
-        cell.configure(viewModel: item)
+        cell.configure(viewModel: item, delegate: self)
         return cell
     }
     
@@ -95,14 +96,19 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
         searchBar.resignFirstResponder()
     }
     
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y + scrollView.frame.height > scrollView.contentSize.height {
+            viewModel.fetchMovies(text: searchBar.text)
+        }
+    }
+    
 }
 
 
 extension MoviesViewController: UISearchBarDelegate {
     
     public func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        if let text = searchBar.text {
-            searchSuggestionView.isHidden = text.isEmpty ? false : true
+        if searchBar.text?.isEmpty ?? true {
             viewModel.fetchSearchHistory()
         }
         return true
@@ -113,8 +119,14 @@ extension MoviesViewController: UISearchBarDelegate {
     }
     
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchSuggestionView.isHidden = searchText.isEmpty ? false : true
-        viewModel.searchMovie(with: searchText)
+        if searchText.isEmpty {
+            viewModel.fetchSearchHistory()
+            viewModel.fetchMovies(text: nil)
+        } else {
+            searchSuggestionView.isHidden = true
+            viewModel.fetchMovies(text: searchText)
+        }
+        
     }
 }
 
@@ -122,8 +134,17 @@ extension MoviesViewController: UISearchBarDelegate {
 extension MoviesViewController: SearchSuggestionsDelegate {
     func selection(text: String) {
         searchBar.text = text
-        viewModel.searchMovie(with: text)
+        viewModel.fetchMovies(text: text)
         searchSuggestionView.isHidden = true
+    }
+}
+
+extension MoviesViewController: MoviesCellectionViewDelegate {
+    func didTap(action: MovieActions, index: Int) {
+        switch action {
+        case .like:
+            viewModel.likeMovie(index: index)
+        }
     }
     
     

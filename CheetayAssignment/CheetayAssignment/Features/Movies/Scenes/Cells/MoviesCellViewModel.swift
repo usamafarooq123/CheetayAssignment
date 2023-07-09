@@ -13,6 +13,8 @@ struct MoviesCellViewModel {
     let name: String
     let releaseData: String
     let imagePath: String
+    let isLike: Bool
+    let index: Int
     
     var avatarURL: URL? {
         let imageUrl: String = "https://image.tmdb.org/t/p/w92/\(imagePath)"

@@ -38,6 +38,8 @@
 		5D7237C92A597BA300A43A97 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7237C82A597BA300A43A97 /* Enum.swift */; };
 		5D7237CF2A5983D500A43A97 /* CheetayAssignment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D7237CD2A5983D500A43A97 /* CheetayAssignment.xcdatamodeld */; };
 		5D7237D12A59859900A43A97 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7237D02A59859900A43A97 /* CoreDataStack.swift */; };
+		5D7237D32A59ADC900A43A97 /* CoreDataManager+SearchHistory+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7237D22A59ADC900A43A97 /* CoreDataManager+SearchHistory+Extension.swift */; };
+		5D7237D52A59ADEE00A43A97 /* CoreDataManager+Movie+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7237D42A59ADEE00A43A97 /* CoreDataManager+Movie+Extension.swift */; };
 		5D7B3D872A582388008F4D64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7B3D862A582388008F4D64 /* AppDelegate.swift */; };
 		5D7B3D892A582388008F4D64 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7B3D882A582388008F4D64 /* SceneDelegate.swift */; };
 		5D7B3D902A582388008F4D64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D7B3D8F2A582388008F4D64 /* Assets.xcassets */; };
@@ -84,6 +86,8 @@
 		5D7237C82A597BA300A43A97 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		5D7237CE2A5983D500A43A97 /* CheetayAssignment.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CheetayAssignment.xcdatamodel; sourceTree = "<group>"; };
 		5D7237D02A59859900A43A97 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		5D7237D22A59ADC900A43A97 /* CoreDataManager+SearchHistory+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataManager+SearchHistory+Extension.swift"; sourceTree = "<group>"; };
+		5D7237D42A59ADEE00A43A97 /* CoreDataManager+Movie+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataManager+Movie+Extension.swift"; sourceTree = "<group>"; };
 		5D7B3D832A582388008F4D64 /* CheetayAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheetayAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D7B3D862A582388008F4D64 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D7B3D882A582388008F4D64 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -219,6 +223,8 @@
 			isa = PBXGroup;
 			children = (
 				5D7237C62A597AEF00A43A97 /* CoreDataManager.swift */,
+				5D7237D42A59ADEE00A43A97 /* CoreDataManager+Movie+Extension.swift */,
+				5D7237D22A59ADC900A43A97 /* CoreDataManager+SearchHistory+Extension.swift */,
 				5D7237CD2A5983D500A43A97 /* CheetayAssignment.xcdatamodeld */,
 				5D7237D02A59859900A43A97 /* CoreDataStack.swift */,
 			);
@@ -472,6 +478,7 @@
 				5DE600C32A582CB0004ABE05 /* Error.swift in Sources */,
 				5D7B3D872A582388008F4D64 /* AppDelegate.swift in Sources */,
 				5D7237872A58400F00A43A97 /* MoviesRequest.swift in Sources */,
+				5D7237D52A59ADEE00A43A97 /* CoreDataManager+Movie+Extension.swift in Sources */,
 				5D7237912A589BDA00A43A97 /* Debouncer.swift in Sources */,
 				5D7237772A5835F200A43A97 /* UICollectionView+Extension.swift in Sources */,
 				5D7237C72A597AEF00A43A97 /* CoreDataManager.swift in Sources */,
@@ -479,6 +486,7 @@
 				5D7237B72A59472900A43A97 /* MovieDetailCell.swift in Sources */,
 				5D7237BA2A594AAF00A43A97 /* MovieDetailCellViewModel.swift in Sources */,
 				5D72378B2A584D2500A43A97 /* UIImage+Extension.swift in Sources */,
+				5D7237D32A59ADC900A43A97 /* CoreDataManager+SearchHistory+Extension.swift in Sources */,
 				5D7237852A583FA500A43A97 /* MoviesDataStore.swift in Sources */,
 				5D72377C2A583CD500A43A97 /* ObjectTranslation.swift in Sources */,
 				5D72377E2A583CDE00A43A97 /* BaseDataStore.swift in Sources */,

@@ -12,8 +12,8 @@ typealias SearchMoviesDataStoreCompletion = (Result<MoviesResponse, Error>) -> V
 
 /// - Parameter completion: block triggered when fetching is completed.
 protocol MoviesDataStoreable {
-    func moviesList(completion: @escaping MoviesDataStoreCompletion)
-    func searchMovies(with name: String, completion: @escaping SearchMoviesDataStoreCompletion)
+    func moviesList(page: Int, completion: @escaping MoviesDataStoreCompletion)
+    func searchMovies(with page: Int,name: String, completion: @escaping SearchMoviesDataStoreCompletion)
 }
 
 final class MoviesDataStore: BaseDataStore, MoviesDataStoreable {
@@ -25,9 +25,9 @@ final class MoviesDataStore: BaseDataStore, MoviesDataStoreable {
         super.init(service: service)
     }
     
-    func moviesList(completion: @escaping MoviesDataStoreCompletion) {
+    func moviesList(page: Int, completion: @escaping MoviesDataStoreCompletion) {
         
-        service.get(request: MoviesRequest()) {[weak self] (result) in
+        service.get(request: MoviesRequest(page: page)) {[weak self] (result) in
             switch result {
             case .success(let data):
                 self?.translateResponse(data: data, completion: completion)
@@ -37,8 +37,8 @@ final class MoviesDataStore: BaseDataStore, MoviesDataStoreable {
         }
     }
     
-    func searchMovies(with name: String, completion: @escaping SearchMoviesDataStoreCompletion) {
-        let request = MovieSearchRequest(name: name)
+    func searchMovies(with page: Int, name: String, completion: @escaping SearchMoviesDataStoreCompletion) {
+        let request = MovieSearchRequest(name: name, page: page)
         service.get(request: request) { [weak self] (result) in
             switch result {
             case .success(let data):
